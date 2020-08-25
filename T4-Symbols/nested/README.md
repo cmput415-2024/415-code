@@ -18,9 +18,10 @@ Authors: Braedy Kuzma (braedy@ualberta.ca), Deric Cheung (dacheung@ualberta.ca)
 
 ## Running
 
-After building, use one of the following commands to run the example.
+After building, use the resulting binary in the `bin/` folder to run the examples.
+Examples:
 ```
-./bin/nested t.cymbol
-./bin/nested t2.cymbol
+bin/nested t.cymbol
+bin/nested t2.cymbol
 ```
 

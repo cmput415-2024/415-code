@@ -18,8 +18,9 @@ Authors: Braedy Kuzma (braedy@ualberta.ca), Deric Cheung (dacheung@ualberta.ca)
 
 ## Running
 
-After building, use the following command to run the example.
+After building, use the resulting binary in the `bin/` folder to run the example.
+Example:
 ```
-./bin/trans Demo.java
+bin/trans Demo.java
 ```
 
