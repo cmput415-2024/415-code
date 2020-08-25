@@ -42,7 +42,7 @@ ExternalProject_Add(
 
   # ANTLR repository and tag.
   GIT_REPOSITORY https://github.com/antlr/antlr4.git
-  GIT_TAG "4.7.1"
+  GIT_TAG "4.8"
   UPDATE_COMMAND ""
   PATCH_COMMAND ""
   TIMEOUT 10
