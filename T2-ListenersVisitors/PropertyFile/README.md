@@ -1,6 +1,6 @@
 # PropertyFile
 
-A translation of the PropertyFile application from T2-ListenersVisitors.pptx to C++ and the assignment format.
+A translation of the PropertyFile visitor and listener applications from T2-ListenersVisitors.pptx to C++ and the assignment format.
 
 Authors: Braedy Kuzma (braedy@ualberta.ca), Deric Cheung (dacheung@ualberta.ca)
 

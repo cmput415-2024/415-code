@@ -28,10 +28,11 @@
 // root of the project directory.
 // For reference, this main.cpp file is in the folder `src/`
 
-// After building the project, the three header files below should appear in `gen/pfile/`.
+// After building the project, the four header files below should appear in `gen/pfile/`.
 #include "PropertyFileLexer.h"
 #include "PropertyFileParser.h"
 #include "PropertyFileBaseListener.h"
+#include "PropertyFileBaseVisitor.h"
 // `gen/pfile/` is configured to be in the include path of this project via CMake
 // which is why we can simply refer to them by name instead of a full path.
 
@@ -50,16 +51,29 @@
 // In this case it is named `pfile` but it will be different for each project.
 namespace pfile {
 
-// Ideally you will want to keep the declarations and definitions separated between header and cpp files
-// But this is a simple example so we will not do that here.
+// Ideally you will want to keep the declarations and definitions separated between
+// header and cpp files, but this is a small example so we will not do that here.
 
-class PropertyFileLoader : public PropertyFileBaseListener {
+/* Listener */
+class PropertyFileLoaderListener : public PropertyFileBaseListener {
 public:
 	std::map<std::string, std::string> props;
 	void exitProp(PropertyFileParser::PropContext *ctx) override {
 		std::string id = ctx->ID()->getText(); // prop : ID '=' STRING '\n' ;
 		std::string value = ctx->STRING()->getText();
 		props[id] = value;
+	}
+};
+
+/* Visitor */
+class PropertyFileLoaderVisitor : public PropertyFileBaseVisitor {
+public:
+	std::map<std::string, std::string> props;
+	antlrcpp::Any visitProp(PropertyFileParser::PropContext *ctx) override {
+		std::string id = ctx->ID()->getText();
+		std::string value = ctx->STRING()->getText();
+		props[id] = value;
+		return nullptr; // must return something, even if we aren't using the return value
 	}
 };
 
@@ -99,9 +113,16 @@ int main(int argc, char **argv) {
 	antlr4::tree::ParseTree *tree = parser.file();
 
 	// Use our PropertyFileLoader listener to load the properties
-	pfile::PropertyFileLoader loader;
-	antlr4::tree::ParseTreeWalker::DEFAULT.walk(&loader, tree);
-	print_props(loader.props);
+	pfile::PropertyFileLoaderListener loaderListener;
+	antlr4::tree::ParseTreeWalker::DEFAULT.walk(&loaderListener, tree);
+	std::cout << "Listener result: ";
+	print_props(loaderListener.props);
+
+	// Use our PropertyFileLoader visitor to load the properties
+	pfile::PropertyFileLoaderVisitor loaderVisitor;
+	loaderVisitor.visit(tree);
+	std::cout << "Visitor result: ";
+	print_props(loaderListener.props);
 
 	return 0;
 }
