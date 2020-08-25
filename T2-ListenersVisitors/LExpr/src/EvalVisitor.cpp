@@ -31,6 +31,7 @@ namespace lexpr {
 
 antlrcpp::Any EvalVisitor::visitMult(LExprParser::MultContext *ctx) {
     return visit(ctx->e(0)).as<int>() * visit(ctx->e(1)).as<int>();
+    // Alternatively, you may use casting instead of the .as<>() method.
 }
 
 antlrcpp::Any EvalVisitor::visitAdd(LExprParser::AddContext *ctx) {

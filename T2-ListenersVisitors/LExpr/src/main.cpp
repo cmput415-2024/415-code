@@ -30,9 +30,13 @@
 #include "CommonTokenStream.h"
 #include "tree/ParseTree.h"
 
+// The three header files below are from the `include/` folder.
 #include "EvalVisitor.h"
 #include "Evaluator.h"
 #include "EvaluatorWithProps.h"
+// `include/` is configured to be in the include path of this project via CMake
+// which is why we can simply refer to the above three headers by name instead 
+// of a full path.
 
 int main(int argc, char **argv) {
 
