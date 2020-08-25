@@ -42,9 +42,9 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	int col = std::stoi(argv[1]);
+	int col = std::stoi(argv[2]);
 
-	antlr4::ANTLRFileStream afs(argv[2]);
+	antlr4::ANTLRFileStream afs(argv[1]);
 	col::RowsLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	col::RowsParser parser(&tokens, col);
