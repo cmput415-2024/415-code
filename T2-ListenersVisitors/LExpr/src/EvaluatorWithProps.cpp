@@ -23,6 +23,11 @@
  *          cmput415@ualberta.ca
 ***/
 
+// It is important to note that this file, `src/EvaluatorWithProps.cpp`, 
+// has been added to `src/CMakeLists.txt`. This is necessary to tell
+// CMake that this code needs to be compiled and linked with the rest
+// of the project.
+
 #include "EvaluatorWithProps.h"
 
 #include <string>
