@@ -12,6 +12,7 @@ antlrcpp::Any ASTBuilder::visitCompilationUnit(CymbolParser::CompilationUnitCont
     return t;
 }
 
+/* ^(METHOD_DECL type ID formalParameters? block) */
 antlrcpp::Any ASTBuilder::visitMethodDeclaration(CymbolParser::MethodDeclarationContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::METHOD_DECL);
     t->addChild(visit(ctx->type()));
@@ -25,6 +26,7 @@ antlrcpp::Any ASTBuilder::visitMethodDeclaration(CymbolParser::MethodDeclaration
     return t;
 }
 
+/* ^(ARG_DECL type ID) */
 antlrcpp::Any ASTBuilder::visitFormalParameter(CymbolParser::FormalParameterContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::ARG_DECL);
     t->addChild(visit(ctx->type()));
@@ -32,6 +34,7 @@ antlrcpp::Any ASTBuilder::visitFormalParameter(CymbolParser::FormalParameterCont
     return t;
 }
 
+/* ^(ARG_DECL type ID)+ */
 antlrcpp::Any ASTBuilder::visitFormalParameterList(CymbolParser::FormalParameterListContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>();
     for ( auto *param : ctx->formalParameter() ) {
@@ -44,6 +47,7 @@ antlrcpp::Any ASTBuilder::visitType(CymbolParser::TypeContext *ctx) {
     return std::make_shared<AST>(ctx->getStart()); // make AST node from the first token in this context
 }
 
+/* ^(BLOCK statement*) */
 antlrcpp::Any ASTBuilder::visitBlock(CymbolParser::BlockContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::BLOCK);
     for (auto *stat : ctx->statement()) {
@@ -52,6 +56,7 @@ antlrcpp::Any ASTBuilder::visitBlock(CymbolParser::BlockContext *ctx) {
     return t;
 }
 
+/* ^(VAR_DECL type ID expression?) */
 antlrcpp::Any ASTBuilder::visitVarDeclaration(CymbolParser::VarDeclarationContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::VAR_DECL);
     t->addChild(visit(ctx->type()));
@@ -68,12 +73,14 @@ antlrcpp::Any ASTBuilder::visitVarDeclarationStat(CymbolParser::VarDeclarationSt
     return visit(ctx->varDeclaration());
 }
 
+/* ^(RETURN expression?) */
 antlrcpp::Any ASTBuilder::visitReturn(CymbolParser::ReturnContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::RETURN);
     if ( ctx->expression() ) t->addChild(visit(ctx->expression()));
     return t;
 }
 
+/* ^(ASSIGN postfixExpression expression) */
 antlrcpp::Any ASTBuilder::visitAssignment(CymbolParser::AssignmentContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::ASSIGN);
     t->addChild(std::make_shared<AST>(ctx->ID()->getSymbol()));
@@ -85,6 +92,7 @@ antlrcpp::Any ASTBuilder::visitExpressionStat(CymbolParser::ExpressionStatContex
     return visit(ctx->expression());
 }
 
+/* ^(ELIST expression+) */
 antlrcpp::Any ASTBuilder::visitExpressionList(CymbolParser::ExpressionListContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::ELIST);
     for ( auto *expr : ctx->expression() ) {
@@ -93,20 +101,22 @@ antlrcpp::Any ASTBuilder::visitExpressionList(CymbolParser::ExpressionListContex
     return t;
 }
 
+/* ^(EXPR expr) */
 antlrcpp::Any ASTBuilder::visitExpression(CymbolParser::ExpressionContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::EXPR);
     t->addChild(visit(ctx->expr()));
     return t;
 }
 
+/* ^(ADD expr expr) */
 antlrcpp::Any ASTBuilder::visitAdd(CymbolParser::AddContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::ADD);
-    for ( auto *expr : ctx->expr() ) {
-        t->addChild(visit(expr));
-    }
+    t->addChild(visit(ctx->expr(0)));
+    t->addChild(visit(ctx->expr(1)));
     return t;
 }
 
+/* ^(CALL expr expressionList) */
 antlrcpp::Any ASTBuilder::visitCall(CymbolParser::CallContext *ctx) {
     std::shared_ptr<AST> t = std::make_shared<AST>(CymbolParser::CALL);
     t->addChild(visit(ctx->expr()));
@@ -118,10 +128,12 @@ antlrcpp::Any ASTBuilder::visitParen(CymbolParser::ParenContext *ctx) {
     return visit(ctx->expr());
 }
 
+/* ID */
 antlrcpp::Any ASTBuilder::visitId(CymbolParser::IdContext *ctx) {
     return std::make_shared<AST>(ctx->ID()->getSymbol());
 }
 
+/* INT */
 antlrcpp::Any ASTBuilder::visitInteger(CymbolParser::IntegerContext *ctx) {
     return std::make_shared<AST>(ctx->INT()->getSymbol());
 }

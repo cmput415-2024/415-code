@@ -27,4 +27,4 @@ public:
     antlrcpp::Any visitInteger(CymbolParser::IntegerContext *ctx) override;
 };
 
-}
+} // namespace nested

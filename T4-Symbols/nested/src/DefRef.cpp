@@ -77,6 +77,7 @@ void DefRef::visitMETHOD_DECL(std::shared_ptr<AST> t) {
     currentScope = currentScope->getEnclosingScope(); // pop method scope
 }
 
+/* ^((ARG_DECL|VAR_DECL) type ID .?) */
 void DefRef::visitDECL(std::shared_ptr<AST> t) {
     std::shared_ptr<AST> ty = t->children[0];
     std::shared_ptr<AST> id = t->children[1];
@@ -90,6 +91,7 @@ void DefRef::visitDECL(std::shared_ptr<AST> t) {
     visitChildren(t);
 }
 
+/* ^(ASSIGN ID .) */
 void DefRef::visitASSIGN(std::shared_ptr<AST> t) {
     visitChildren(t);
 
@@ -98,6 +100,7 @@ void DefRef::visitASSIGN(std::shared_ptr<AST> t) {
     std::cout << "line " << id->token->getLine() << ": assign to " << vs->toString() << "\n";
 }
 
+/* {$start.hasAncestor(EXPR)}? ID */
 void DefRef::visitID(std::shared_ptr<AST> t) {
     if ( numExprAncestors > 0 ) { // If an ID occurs within an expression, we have an ID reference
         std::shared_ptr<Symbol> s = currentScope->resolve(t->token->getText());
