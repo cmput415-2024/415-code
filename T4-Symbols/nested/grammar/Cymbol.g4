@@ -23,6 +23,10 @@
  *          cmput415@ualberta.ca
 ***/
 
+// Note: this grammar is different than that shown in the slides/textbook
+// This modified grammar takes advantage of ANTLR 4's handling of left recursion
+// to make the grammar easier to understand.
+
 grammar Cymbol;
 
 tokens {

@@ -23,6 +23,10 @@
  *          cmput415@ualberta.ca
 ***/
 
+// The ASTBuilder class is a visitor that translates the functionality
+// of the AST Construction facilities from the ANTLR3 grammar `Cymbol.g`
+// from the slides/textbook to ANTLR4 and C++.
+
 #include "ASTBuilder.h"
 
 #include "AST.h"
