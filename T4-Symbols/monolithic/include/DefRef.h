@@ -23,12 +23,25 @@
  *          cmput415@ualberta.ca
 ***/
 
+// The DefRef class is a visitor that translates the functionality
+// of the tree grammar `DefRef.g` from the slides/textbook to ANTLR4
+// and C++.
+
 #pragma once
 
-#include "BaseScope.h"
+#include "CymbolBaseVisitor.h"
 
-class GlobalScope : public BaseScope {
+#include "SymbolTable.h"
+
+namespace mono {
+
+class DefRef : public CymbolBaseVisitor {
 public:
-    GlobalScope();
-    std::string getScopeName() override;
+    SymbolTable symtab;
+    DefRef();
+    virtual antlrcpp::Any visitType(CymbolParser::TypeContext *ctx) override;
+    virtual antlrcpp::Any visitVarDeclaration(CymbolParser::VarDeclarationContext *ctx) override;
+    virtual antlrcpp::Any visitPrimaryID(CymbolParser::PrimaryIDContext *ctx) override;
 };
+
+}

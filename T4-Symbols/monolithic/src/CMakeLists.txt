@@ -2,8 +2,8 @@
 set(
   mono_src_files
     "${CMAKE_CURRENT_SOURCE_DIR}/BuiltInTypeSymbol.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DefRef.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/MyVisitor.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Scope.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Symbol.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/SymbolTable.cpp"
