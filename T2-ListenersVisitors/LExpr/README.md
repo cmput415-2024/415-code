@@ -2,8 +2,6 @@
 
 A translation of the visitor, stack, and tree annotation methods for evaluating the LExpr grammar from T2-ListenersVisitors.pptx to C++ and the assignment format.
 
-Authors: Braedy Kuzma (braedy@ualberta.ca), Deric Cheung (dacheung@ualberta.ca)
-
 # Usage
 ## Building
 ### Linux

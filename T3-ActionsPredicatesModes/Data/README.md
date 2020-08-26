@@ -2,8 +2,6 @@
 
 A translation of the Data grammar and application from T3-ActionsPredicatesModes.pptx to C++ and the assignment format.
 
-Authors: Braedy Kuzma (braedy@ualberta.ca), Deric Cheung (dacheung@ualberta.ca)
-
 # Usage
 ## Building
 ### Linux

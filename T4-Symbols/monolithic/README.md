@@ -2,8 +2,6 @@
 
 A translation of the monolithic symbol table application from T4-Symbols.pptx to C++ and ANTLR4, in the assignment format.
 
-Authors: Braedy Kuzma (braedy@ualberta.ca), Deric Cheung (dacheung@ualberta.ca)
-
 # Usage
 ## Building
 ### Linux
