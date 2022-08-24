@@ -34,16 +34,15 @@
 
 namespace lexpr {
 
-antlrcpp::Any EvalVisitor::visitMult(LExprParser::MultContext *ctx) {
-    return visit(ctx->e(0)).as<int>() * visit(ctx->e(1)).as<int>();
-    // Alternatively, you may use casting instead of the .as<>() method.
+std::any EvalVisitor::visitMult(LExprParser::MultContext *ctx) {
+    return std::any_cast<int>(visit(ctx->e(0))) * std::any_cast<int>(visit(ctx->e(1)));
 }
 
-antlrcpp::Any EvalVisitor::visitAdd(LExprParser::AddContext *ctx) {
-    return visit(ctx->e(0)).as<int>() + visit(ctx->e(1)).as<int>();
+std::any EvalVisitor::visitAdd(LExprParser::AddContext *ctx) {
+    return std::any_cast<int>(visit(ctx->e(0))) + std::any_cast<int>(visit(ctx->e(1)));
 }
 
-antlrcpp::Any EvalVisitor::visitInt(LExprParser::IntContext *ctx) {
+std::any EvalVisitor::visitInt(LExprParser::IntContext *ctx) {
     return std::stoi(ctx->INT()->getText());
 }
 

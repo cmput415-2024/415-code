@@ -47,7 +47,8 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	antlr4::ANTLRFileStream afs(argv[1]);
+	antlr4::ANTLRFileStream afs; 
+	afs.loadFromFile(argv[1]);
 	nested::CymbolLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	nested::CymbolParser parser(&tokens);
@@ -55,7 +56,7 @@ int main(int argc, char **argv) {
 	antlr4::tree::ParseTree *tree = parser.compilationUnit();
 
 	nested::ASTBuilder builder;
-	std::shared_ptr<AST> ast = builder.visit(tree);
+	std::shared_ptr<AST> ast = std::any_cast<std::shared_ptr<AST>>(builder.visit(tree));
 
 	DefRef defref;
 	defref.visit(ast);

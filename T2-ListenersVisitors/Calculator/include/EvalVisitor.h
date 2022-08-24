@@ -33,7 +33,7 @@
 
 namespace calc {
 
-// Note the special return types of the visit functions: antlrcpp::Any
+// Note the special return types of the visit functions: std::any
 // As the name implies, it means that the function can return "Any[thing]".
 // Just make sure to cast the result to the correct type before using it.
 
@@ -43,25 +43,25 @@ public:
 	std::map<std::string, int> memory;
 
 	/** ID '=' expr NEWLINE */
-	antlrcpp::Any visitAssign(LabeledExprParser::AssignContext *ctx) override;
+	std::any visitAssign(LabeledExprParser::AssignContext *ctx) override;
 
 	/** expr NEWLINE */
-	antlrcpp::Any visitPrintExpr(LabeledExprParser::PrintExprContext *ctx) override;
+	std::any visitPrintExpr(LabeledExprParser::PrintExprContext *ctx) override;
 
     /** INT */
-    antlrcpp::Any visitInt(LabeledExprParser::IntContext *ctx) override;
+    std::any visitInt(LabeledExprParser::IntContext *ctx) override;
 
     /** ID */
-    antlrcpp::Any visitId(LabeledExprParser::IdContext *ctx) override;
+    std::any visitId(LabeledExprParser::IdContext *ctx) override;
 
     /** expr op=('*'|'/') expr */
-    antlrcpp::Any visitMulDiv(LabeledExprParser::MulDivContext *ctx) override;
+    std::any visitMulDiv(LabeledExprParser::MulDivContext *ctx) override;
 
     /** expr op=('+'|'-') expr */
-    antlrcpp::Any visitAddSub(LabeledExprParser::AddSubContext *ctx) override;
+    std::any visitAddSub(LabeledExprParser::AddSubContext *ctx) override;
 
     /** '(' expr ')' */
-    antlrcpp::Any visitParens(LabeledExprParser::ParensContext *ctx) override;
+    std::any visitParens(LabeledExprParser::ParensContext *ctx) override;
 };
 
 }

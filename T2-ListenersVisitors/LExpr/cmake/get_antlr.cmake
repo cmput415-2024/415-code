@@ -20,12 +20,12 @@ file(TO_CMAKE_PATH "${_ANTLR_DIR}/bin" BIN_DIR) # Join dir.
 set(BIN_DIR ${BIN_DIR} CACHE PATH "ANTLR jar directory.") # Set for internal use.
 
 # Download ANTLR executable, saves us from ensuring people have java build tools (e.g. Maven)...
-file(TO_CMAKE_PATH "${BIN_DIR}/antlr-4.8-complete.jar" ANTLR_JAR)
+file(TO_CMAKE_PATH "${BIN_DIR}/antlr-4.10.1-complete.jar" ANTLR_JAR)
 if (NOT EXISTS "${ANTLR_JAR}")
   message(STATUS "Downloading ANTLR generator...")
   file(
     DOWNLOAD
-    http://www.antlr.org/download/antlr-4.8-complete.jar
+    http://www.antlr.org/download/antlr-4.10.1-complete.jar
     "${ANTLR_JAR}"
     SHOW_PROGRESS
   )

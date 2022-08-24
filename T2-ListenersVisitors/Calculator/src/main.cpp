@@ -44,7 +44,8 @@ int main(int argc, char **argv) {
 	}
 
 	// Open the file then parse and lex it.
-	antlr4::ANTLRFileStream afs(argv[1]); 
+	antlr4::ANTLRFileStream afs; 
+	afs.loadFromFile(argv[1]); 
 	calc::LabeledExprLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	calc::LabeledExprParser parser(&tokens);

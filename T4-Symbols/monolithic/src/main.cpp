@@ -52,7 +52,8 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	antlr4::ANTLRFileStream afs(argv[1]);
+	antlr4::ANTLRFileStream afs; 
+	afs.loadFromFile(argv[1]);
 	mono::CymbolLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	mono::CymbolParser parser(&tokens);

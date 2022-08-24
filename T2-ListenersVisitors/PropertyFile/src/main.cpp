@@ -69,7 +69,7 @@ public:
 class PropertyFileLoaderVisitor : public PropertyFileBaseVisitor {
 public:
 	std::map<std::string, std::string> props;
-	antlrcpp::Any visitProp(PropertyFileParser::PropContext *ctx) override {
+	std::any visitProp(PropertyFileParser::PropContext *ctx) override {
 		std::string id = ctx->ID()->getText();
 		std::string value = ctx->STRING()->getText();
 		props[id] = value;
@@ -104,7 +104,8 @@ int main(int argc, char **argv) {
 
 
 	// Open the file then parse and lex it.
-	antlr4::ANTLRFileStream afs(argv[1]);
+	antlr4::ANTLRFileStream afs; 
+	afs.loadFromFile(argv[1]);
 	pfile::PropertyFileLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	pfile::PropertyFileParser parser(&tokens);

@@ -45,6 +45,7 @@ public:
      *  with same node type while walking. */
     size_t getNodeType();
     
+    void addChild(std::any t);
     void addChild(std::shared_ptr<AST> t);
     bool isNil();
 

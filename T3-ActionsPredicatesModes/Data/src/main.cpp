@@ -42,7 +42,8 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	antlr4::ANTLRFileStream afs(argv[1]);
+	antlr4::ANTLRFileStream afs; 
+	afs.loadFromFile(argv[1]);
 	data::DataLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	data::DataParser parser(&tokens);

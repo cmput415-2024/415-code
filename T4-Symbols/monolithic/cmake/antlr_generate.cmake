@@ -71,3 +71,4 @@ add_custom_command(
 # Build a library from the generated sources.
 add_library(parser STATIC ${ANTLR_GEN_SRC})
 target_include_directories(parser PUBLIC ${ANTLR_INCLUDE_DIRS})
+target_link_libraries(parser PUBLIC Threads::Threads)

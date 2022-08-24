@@ -47,7 +47,8 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	antlr4::ANTLRFileStream afs(argv[1]); 
+	antlr4::ANTLRFileStream afs; 
+	afs.loadFromFile(argv[1]); 
 	lexpr::LExprLexer lexer(&afs);
 	antlr4::CommonTokenStream tokens(&lexer);
 	lexpr::LExprParser parser(&tokens);
@@ -55,7 +56,7 @@ int main(int argc, char **argv) {
 	antlr4::tree::ParseTree *tree = parser.s();
 
 	lexpr::EvalVisitor visitor;
-	int visitor_result = visitor.visit(tree);
+	int visitor_result = std::any_cast<int>(visitor.visit(tree));
 	std::cout << "visitor result = " << visitor_result << '\n';
 
 	lexpr::Evaluator eval;

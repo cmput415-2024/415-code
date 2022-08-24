@@ -36,7 +36,7 @@ namespace mono {
 
 DefRef::DefRef() : symtab() {}
 
-antlrcpp::Any DefRef::visitType(CymbolParser::TypeContext *ctx) {
+std::any DefRef::visitType(CymbolParser::TypeContext *ctx) {
     std::shared_ptr<Type> tsym;
     tsym = std::dynamic_pointer_cast<Type>(symtab.resolve(ctx->getText()));
     // std::dynamic_pointer_cast<Type>(arg) casts arg to a std::shared_ptr<Type>
@@ -44,10 +44,10 @@ antlrcpp::Any DefRef::visitType(CymbolParser::TypeContext *ctx) {
     return tsym;
 }
 
-antlrcpp::Any DefRef::visitVarDeclaration(CymbolParser::VarDeclarationContext *ctx) {
+std::any DefRef::visitVarDeclaration(CymbolParser::VarDeclarationContext *ctx) {
     size_t line = ctx->getStart()->getLine();
     std::string idstr = ctx->ID()->getText();
-    std::shared_ptr<Type> type = visit(ctx->type());
+    std::shared_ptr<Type> type = std::any_cast<std::shared_ptr<Type>>(visit(ctx->type()));
 
     std::cout << "line " << line << ": def " << idstr << '\n';
     std::shared_ptr<VariableSymbol> vs = std::make_shared<VariableSymbol>(idstr, type);
@@ -60,7 +60,7 @@ antlrcpp::Any DefRef::visitVarDeclaration(CymbolParser::VarDeclarationContext *c
     return 0; // we must return some value
 }
 
-antlrcpp::Any DefRef::visitPrimaryID(CymbolParser::PrimaryIDContext *ctx) {
+std::any DefRef::visitPrimaryID(CymbolParser::PrimaryIDContext *ctx) {
     size_t line = ctx->getStart()->getLine();
     std::string idstr = ctx->ID()->getText();
 

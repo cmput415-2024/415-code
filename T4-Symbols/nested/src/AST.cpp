@@ -33,6 +33,9 @@ AST::AST(size_t tokenType) { token = std::make_shared<antlr4::CommonToken>(token
 
 size_t AST::getNodeType() { return token->getType(); }
 
+void AST::addChild(std::any t) {
+    this->addChild(std::any_cast<std::shared_ptr<AST>>(t)); // There is only one valid type for t. Pass it to AST::addChild(std::shared_ptr<AST> t)
+}
 void AST::addChild(std::shared_ptr<AST> t) {
     children.push_back(t);
 }

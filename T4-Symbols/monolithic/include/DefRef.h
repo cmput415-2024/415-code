@@ -39,9 +39,9 @@ class DefRef : public CymbolBaseVisitor {
 public:
     SymbolTable symtab;
     DefRef();
-    virtual antlrcpp::Any visitType(CymbolParser::TypeContext *ctx) override;
-    virtual antlrcpp::Any visitVarDeclaration(CymbolParser::VarDeclarationContext *ctx) override;
-    virtual antlrcpp::Any visitPrimaryID(CymbolParser::PrimaryIDContext *ctx) override;
+    virtual std::any visitType(CymbolParser::TypeContext *ctx) override;
+    virtual std::any visitVarDeclaration(CymbolParser::VarDeclarationContext *ctx) override;
+    virtual std::any visitPrimaryID(CymbolParser::PrimaryIDContext *ctx) override;
 };
 
 }
