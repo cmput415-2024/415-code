@@ -1,17 +1,16 @@
-# A module to obtain the ANTLR C++ runtime. It attempts to find a locally installed copy of the
-# runtime pointed to by an environment variable called ANTLR_INS. Can swap in get_antlr_manual
-# if you'd rather have it auto-install a copy just for this project (more space).
-
-# CMake module that finds a previously installed copy of the ANTLR C++ runtime required when linking
-# a generated lexer/parser. Creates the variable ANTLR_INCLUDE_DIRS to add to your target's
-# include directories, adds the antlr library path to the project, allows your target to link
-# against antlr4-runtime, creates ANTLR_JAR for generating grammars, and creates an antlr target
-# that you can add via add_dependencies to make sure everything has happened already.
+# A module to obtain the ANTLR C++ runtime. It attempts to find a locally installed
+# copy of the runtime pointed to by an environment variable called ANTLR_INS.
+# The module also looks for the environment variable ANTLR_JAR, which is used
+# to generate the lexer and parser.
+# Creates the variable ANTLR_INCLUDE_DIRS to add to your target's include
+# directories, adds the antlr library path to the project, allows your target
+# to link against antlr4-runtime, and creates an antlr target that you can add
+# via add_dependencies to make sure everything has happened already.
 
 # Get the environment variable that tells us where the manual install was.
 if (NOT DEFINED ENV{ANTLR_INS})
-  message(FATAL_ERROR "Did you forget to install ANTLR? The ANTLR_INS environment variable was "
-                      "not set.")
+  message(FATAL_ERROR "Did you forget to install ANTLR?"
+          "The ANTLR_INS environment variable was not set.")
 endif()
 file(TO_CMAKE_PATH "$ENV{ANTLR_INS}" _ANTLR_DIR)
 
@@ -19,19 +18,11 @@ file(TO_CMAKE_PATH "$ENV{ANTLR_INS}" _ANTLR_DIR)
 file(TO_CMAKE_PATH "${_ANTLR_DIR}/bin" BIN_DIR) # Join dir.
 set(BIN_DIR ${BIN_DIR} CACHE PATH "ANTLR jar directory.") # Set for internal use.
 
-# Download ANTLR executable, saves us from ensuring people have java build tools (e.g. Maven)...
-file(TO_CMAKE_PATH "${BIN_DIR}/antlr-4.10.1-complete.jar" ANTLR_JAR)
-if (NOT EXISTS "${ANTLR_JAR}")
-  message(STATUS "Downloading ANTLR generator...")
-  file(
-    DOWNLOAD
-    http://www.antlr.org/download/antlr-4.10.1-complete.jar
-    "${ANTLR_JAR}"
-    SHOW_PROGRESS
-  )
-  file(TO_NATIVE_PATH "${BIN_DIR}" BIN_DIR_NATIVE) # Transform for display.
-  message(STATUS "Downloaded ANTLR jar destination: ${BIN_DIR_NATIVE}")
+# Find the ANTLR binary
+if (NOT DEFINED ENV{ANTLR_JAR})
+  message(FATAL_ERROR "The ANTLR_JAR environment variable is not set")
 endif()
+set(ANTLR_JAR "$ENV{ANTLR_JAR}")
 
 # Check that the base include path exists.
 if (NOT EXISTS "${_ANTLR_DIR}/include/antlr4-runtime/")

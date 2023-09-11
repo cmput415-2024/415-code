@@ -14,3 +14,6 @@ build/
 # Ignore other IDE files
 .vscode/
 .antlr/
+
+# Ignore macOS files
+.DS_STORE
