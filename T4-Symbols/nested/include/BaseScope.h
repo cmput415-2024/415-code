@@ -36,9 +36,9 @@ public:
 	std::map<std::string, std::shared_ptr<Symbol>> symbols;
 
     BaseScope(std::shared_ptr<Scope> enclosingScope);
-    std::shared_ptr<Symbol> resolve(const std::string &name);
-	void define(std::shared_ptr<Symbol> sym);
-    std::shared_ptr<Scope> getEnclosingScope();
+    std::shared_ptr<Symbol> resolve(const std::string &name) override;
+	void define(std::shared_ptr<Symbol> sym) override;
+    std::shared_ptr<Scope> getEnclosingScope() override;
 
 	virtual std::string toString() override;
 };
