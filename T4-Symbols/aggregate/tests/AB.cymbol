@@ -1,0 +1,16 @@
+// stort of global scope
+class A {
+public:
+  int x;
+  void foo() { }
+};
+class B : public A {
+  int y;
+  void foo() {
+    int z = x + y;
+  }
+};
+bar() {
+  B b;
+  b.foo();
+}

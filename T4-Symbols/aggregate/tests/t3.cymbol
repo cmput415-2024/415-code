@@ -1,0 +1,15 @@
+// start of global scope
+struct A {
+    int x;
+    struct B { int y; };
+    B b;
+    struct C { int z; };
+    C c;
+};
+A a;
+
+void f() {
+    struct D { int i; };
+    D d;
+    d.i = a.b.y;
+}
