@@ -1,0 +1,16 @@
+// stort of global scope
+float g = 0;
+class A {
+public:
+  int x;
+  void foo() { x = g; }
+};
+class B : public A {
+  void foo() {
+    int z = x + y;
+  }
+  int y;
+};
+void bar(B b) {
+  b.foo();
+}
